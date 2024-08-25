@@ -1,5 +1,5 @@
 pipeline {
-    agent any 
+    agent any
 
     stages {
         stage('Build') {
@@ -22,8 +22,9 @@ pipeline {
                         def status = currentBuild.currentResult
                         emailext (
                             subject: "Jenkins: Test Stage Result - ${status}",
-                            body: "The Unit and Integration Tests stage has finished with status: ${status}.",
-                            to: 's224447838@deakin.edu.au',
+                            body: """<p>The 'Unit and Integration Tests' stage has finished with status: <strong>${status}</strong>.</p>""",
+                            to: 'christianghantous1@gmail.com',
+                            mimeType: 'text/html',
                             attachLog: true
                         )
                     }
@@ -49,8 +50,9 @@ pipeline {
                         def status = currentBuild.currentResult
                         emailext (
                             subject: "Jenkins: Security Scan Stage Result - ${status}",
-                            body: "The Security Scan stage has finished with status: ${status}.",
-                            to: 's224447838@deakin.edu.au',
+                            body: """<p>The 'Security Scan' stage has finished with status: <strong>${status}</strong>.</p>""",
+                            to: 'christianghantous1@gmail.com',
+                            mimeType: 'text/html',
                             attachLog: true
                         )
                     }
