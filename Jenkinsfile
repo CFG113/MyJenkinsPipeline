@@ -16,6 +16,19 @@ pipeline {
                 // Example: sh 'mvn test'
                 echo 'Tools used: JUnit for unit tests, Selenium for integration tests'
             }
+            post {
+                always {
+                    script {
+                        def status = currentBuild.currentResult
+                        emailext (
+                            subject: "Jenkins: Test Stage Result - ${status}",
+                            body: "The Unit and Integration Tests stage has finished with status: ${status}.",
+                            to: 's224447838@deakin.edu.au',
+                            attachLog: true
+                        )
+                    }
+                }
+            }
         }
         stage('Code Analysis') {
             steps {
@@ -29,6 +42,19 @@ pipeline {
                 echo 'Performing security scan to identify vulnerabilities in the code...'
                 // Example: sh 'dependency-check --project MyProject --scan .'
                 echo 'Tool used: OWASP Dependency Check'
+            }
+            post {
+                always {
+                    script {
+                        def status = currentBuild.currentResult
+                        emailext (
+                            subject: "Jenkins: Security Scan Stage Result - ${status}",
+                            body: "The Security Scan stage has finished with status: ${status}.",
+                            to: 's224447838@deakin.edu.au',
+                            attachLog: true
+                        )
+                    }
+                }
             }
         }
         stage('Deploy to Staging') {
