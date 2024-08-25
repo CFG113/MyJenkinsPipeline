@@ -23,7 +23,6 @@ pipeline {
                             subject: "Jenkins: Test Stage Result - ${status}",
                             body: """<p>The 'Unit and Integration Tests' stage has finished with status: <strong>${status}</strong>.</p>""",
                             to: 'christianghantous1@gmail.com',
-                            mimeType: 'text/html',
                             attachLog: true
                         )
                     }
