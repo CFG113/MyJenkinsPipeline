@@ -20,9 +20,31 @@ pipeline {
                         echo "Sending email for Unit and Integration Tests stage"
                         def status = currentBuild.currentResult
                         emailext (
-                            subject: "Jenkins: Test Stage Result - ${status}",
+                            subject: "Jenkins: Unit and Integration Tests Stage Result - ${status}",
                             body: """<p>The 'Unit and Integration Tests' stage has finished with status: <strong>${status}</strong>.</p>""",
                             to: 'christianghantous1@gmail.com',
+                            mimeType: 'text/html',
+                            attachLog: true
+                        )
+                    }
+                }
+            }
+        }
+        stage('Security Scan') {
+            steps {
+                echo 'Running security scan to identify vulnerabilities...'
+                // Example security scan step: sh 'security-scan-command'
+            }
+            post {
+                always {
+                    script {
+                        echo "Sending email for Security Scan stage"
+                        def status = currentBuild.currentResult
+                        emailext (
+                            subject: "Jenkins: Security Scan Stage Result - ${status}",
+                            body: """<p>The 'Security Scan' stage has finished with status: <strong>${status}</strong>.</p>""",
+                            to: 'christianghantous1@gmail.com',
+                            mimeType: 'text/html',
                             attachLog: true
                         )
                     }
