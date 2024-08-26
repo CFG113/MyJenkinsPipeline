@@ -65,7 +65,7 @@ pipeline {
         }
         stage('Deploy to Production') {
             steps {
-                echo 'Deploying the application to the production server using AWS CLI...'
+                echo 'Deploying the application to the production server using AWS CLI..'
                 // Example deploy to production step: sh 'scp target/myapp.war user@production-server:/path/to/deploy'
             }
         }
